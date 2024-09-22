@@ -66,7 +66,6 @@ export async function getId(
   api: string,
   branch: string
 ) {
-  console.log(api);
   let request = await fetch(`${url}:${branch}/tables/${table}/data/${id}`, {
     method: "GET",
     headers: {
