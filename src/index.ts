@@ -1,9 +1,29 @@
-import { Hono } from 'hono'
+import { Hono } from "hono";
+import { requestId } from "hono/request-id";
 
-const app = new Hono<{ Bindings: CloudflareBindings }>()
+import V1 from "./routes/v1";
 
-app.get('/', (c) => {
-  return c.text('Hello Hono!')
-})
+const app = new Hono<{ Bindings: CloudflareBindings }>();
 
-export default app
+app.use("*", requestId());
+
+app.get("/", (c: any) => {
+  return c.text(
+    `Celestialy Api\nhttps://github.com/CelestialyXYZ/Api\nCopyright: Celestialy © 2023-${new Date().getFullYear()}`
+  );
+});
+
+app.notFound((c) => {
+  return c.json(
+    {
+      request_id: c.get("requestId"),
+      status: 404,
+      message: "Not found",
+    },
+    404
+  );
+});
+
+new V1(app);
+
+export default app;
