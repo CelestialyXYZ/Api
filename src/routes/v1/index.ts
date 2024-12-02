@@ -27,5 +27,18 @@ export default class Routes {
 
       return c.json(record, code);
     });
+    
+    app.use(makePath(this.version, "/objects/constellations/:id"), async (c: any) => {
+      const { id } = c.req.param();
+      const { record, code } = await getId(
+        id,
+        "constellations",
+        c.env.XATA_DATABASE_URL,
+        c.env.XATA_API_KEY,
+        c.env.XATA_BRANCH
+      );
+
+      return c.json(record, code);
+    });
   }
 }
