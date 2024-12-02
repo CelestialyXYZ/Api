@@ -105,6 +105,3 @@ compatibility_date = "2024-09-19"
 # [[vectorize]]
 # binding = "MY_INDEX"
 # index_name = "my-index"
-
-[observability.logs]
-enabled = true
